@@ -51,4 +51,5 @@ Patches
 - [autostart](https://dwm.suckless.org/patches/autostart/)
 - [barpadding](https://dwm.suckless.org/patches/barpadding/)
 - [statuspadding](https://dwm.suckless.org/patches/statuspadding/)
+- [bottomstack](https://dwm.suckless.org/patches/bottomstack/)
 
