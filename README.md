@@ -50,4 +50,3 @@ Patches
 - [actualfullscreen](https://dwm.suckless.org/patches/actualfullscreen/)
 - [autostart](https://dwm.suckless.org/patches/autostart/)
 
-- [inplacerotate](https://dwm.suckless.org/patches/inplacerotate/)
