@@ -49,4 +49,6 @@ Patches
 - [activetagindicatorbar](https://dwm.suckless.org/patches/activetagindicatorbar/)
 - [actualfullscreen](https://dwm.suckless.org/patches/actualfullscreen/)
 - [autostart](https://dwm.suckless.org/patches/autostart/)
+- [barpadding](https://dwm.suckless.org/patches/barpadding/)
+- [statuspadding](https://dwm.suckless.org/patches/statuspadding/)
 
