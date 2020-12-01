@@ -2,11 +2,9 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
-
 Requirements
 ------------
 In order to build dwm you need the Xlib header files.
-
 
 Installation
 ------------
@@ -17,7 +15,6 @@ Afterwards enter the following command to build and install dwm (if
 necessary as root):
 
     make clean install
-
 
 Running dwm
 -----------
@@ -41,8 +38,19 @@ like this in your .xinitrc:
     done &
     exec dwm
 
-
 Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
+
+Patches
+-------------
+
+- [activetagindicatorbar](https://dwm.suckless.org/patches/activetagindicatorbar/)
+- [actualfullscreen](https://dwm.suckless.org/patches/actualfullscreen/)
+- [autostart](https://dwm.suckless.org/patches/autostart/)
+- [barpadding](https://dwm.suckless.org/patches/barpadding/)
+- [statuspadding](https://dwm.suckless.org/patches/statuspadding/)
+- [bottomstack](https://dwm.suckless.org/patches/bottomstack/)
+- [centredmaster](https://dwm.suckless.org/patches/centeredmaster/)
+
