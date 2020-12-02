@@ -7,6 +7,7 @@ static unsigned int snap      		= 32;       	/* snap pixel */
 static const int swallowfloating    	= 0;        	/* 1 means swallow floating windows by default */
 static int showbar            		= 1;        	/* 0 means no bar */
 static int topbar             		= 1;        	/* 0 means bottom bar */
+static const int viewontag		= 1;		/* follow a window when moving to a tag */
 static const int horizpadbar        	= 12;       	/* horizontal padding for statusbar */
 static const int vertpadbar         	= 12;       	/* vertical padding for statusbar */
 static const int vertpad	    	= 18;		/* vertical padding of bar */
