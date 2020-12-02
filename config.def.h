@@ -67,6 +67,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_pink, "-sf", col_gray4, "-h", "30", "-g", "3", "-l", "5", NULL };
+static const char *dmenuemojicmd[] = { "dmenuunicode" , NULL};
 static const char *termcmd[]  = { "st", NULL };
 
 #include "selfrestart.c"
@@ -74,6 +75,7 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,		XK_p,	   spawn,	   {.v = dmenuemojicmd} },
 	{ MODKEY,	             	XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
