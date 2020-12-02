@@ -54,14 +54,15 @@ static int nmaster     = 1;    /* number of clients in master area */
 static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
-	{ "|M|",      centeredmaster },
-	{ ">M>",      centeredfloatingmaster },
-	{ "TTT",      bstack },
-	{ "===",      bstackhoriz },
+	/* symbol	arrange function */
+	{ "[]=", 	tile },    /* first entry is default */
+	{ "><>", 	NULL },    /* no layout function means floating behavior */
+	{ "[M]", 	monocle },
+	{ "|M|", 	centeredmaster },
+	{ ">M>", 	centeredfloatingmaster },
+	{ "TTT", 	bstack },
+	{ "===", 	bstackhoriz },
+	{ "D",	 	deck },
 };
 
 /* key definitions */
@@ -131,6 +132,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY|ShiftMask,		XK_t,	   setlayout,	   {.v = &layouts[7]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,	                XK_f,      togglefullscr,  {0} },
