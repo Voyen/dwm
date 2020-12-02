@@ -52,5 +52,4 @@ Patches
 - [barpadding](https://dwm.suckless.org/patches/barpadding/)
 - [statuspadding](https://dwm.suckless.org/patches/statuspadding/)
 - [bottomstack](https://dwm.suckless.org/patches/bottomstack/)
-- [centredmaster](https://dwm.suckless.org/patches/centeredmaster/)
 
