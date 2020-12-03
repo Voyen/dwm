@@ -1,37 +1,48 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static unsigned int borderpx  		= 2;        	/* border pixel of windows */
-static int gappx			= 18;		/* gaps between windows */
-static unsigned int snap      		= 32;       	/* snap pixel */
+static const unsigned int borderpx  	= 3;        	/* border pixel of windows */
+static const int gappx			= 18;		/* gaps between windows */
+static const unsigned int snap      	= 32;       	/* snap pixel */
 static const int swallowfloating    	= 0;        	/* 1 means swallow floating windows by default */
-static int showbar            		= 1;        	/* 0 means no bar */
-static int topbar             		= 1;        	/* 0 means bottom bar */
+static const int showbar            	= 1;        	/* 0 means no bar */
+static const int topbar        		= 1;        	/* 0 means bottom bar */
 static const int viewontag		= 1;		/* follow a window when moving to a tag */
 static const int horizpadbar        	= 12;       	/* horizontal padding for statusbar */
 static const int vertpadbar         	= 12;       	/* vertical padding for statusbar */
 static const int vertpad	    	= 18;		/* vertical padding of bar */
 static const int sidepad	    	= 18;		/* horizontal padding of bar */
-static const char *fonts[]          	= { "monospace:size=12", "JoyPixels:pixelsize=12:antialias=true:autohint=true" };
-static const char dmenufont[]       	= "monospace:size=12";
-static char normbgcolor[]		= "#222222";
-static char normbordercolor[]		= "#444444";
-static char normfgcolor[]		= "#bbbbbb";
-static char selfgcolor[]		= "#eeeeee";
-static char selbordercolor[]		= "#005577";
-static char selbgcolor[]		= "#005577";
-static const unsigned int baralpha	= 0;
+static const char *fonts[]          	= { "monospace:size=10", "JoyPixels:pixelsize=10:antialias=true:autohint=true" };
+static const char dmenufont[]       	= "monospace:size=10";
+static char selbordercolor[]		= "#000000";
+static char col_black[]			= "#000000";
+static char col_white[]			= "#ffffff";
+static char col_normborder[]		= "#282a36";
+static char col_selborder[]		= "#ffb86c";
+static char col_normbg[]		= "#282a36";
+static char col_selbg[]			= "#684a82";
+static char col_normfg[]		= "#ff79c6";
+static char col_selfg[]			= "#ffb86c";
+static const unsigned int baralpha	= 208;
 static const unsigned int borderalpha	= OPAQUE;
-static char *colors[][3]      		= {
-	/*               fg         	bg         	border   */
-	[SchemeNorm] = { normfgcolor, 	normbgcolor, 	normbordercolor },
-	[SchemeSel]  = { selfgcolor, 	selbgcolor,  	selbordercolor  },
+static const char *colors[][3]      	= {
+	/*               	  fg         	bg         	border   */
+	[SchemeNorm] = 		{ col_white, 	col_black, 	col_normborder },
+	[SchemeSel]  = 		{ col_white, 	col_black,  	col_selborder },
+	[SchemeStatus] = 	{ col_normfg,	col_normbg,	col_black },
+	[SchemeTagsNorm] = 	{ col_normfg,	col_normbg,	col_black },
+	[SchemeTagsSel] = 	{ col_selfg,	col_selbg,	col_black },
+	[SchemeInfoNorm] = 	{ col_normfg,	col_black,	col_black },
+	[SchemeInfoSel] = 	{ col_selfg,	col_white,	col_black },
 };
 
 static const unsigned int alphas[][3]	= {
-	/*		  fg		bg		border	*/
-	[SchemeNorm] = 	{ OPAQUE,	baralpha,	borderalpha },
-	[SchemeSel] = 	{ OPAQUE,	baralpha,	borderalpha },
+	/*		  	  fg		bg		border	*/
+	[SchemeStatus] = 	{ OPAQUE,	baralpha,	borderalpha },
+	[SchemeTagsNorm] = 	{ OPAQUE,	baralpha,	borderalpha },
+	[SchemeTagsSel] = 	{ OPAQUE,	baralpha,	borderalpha },
+	[SchemeInfoNorm] = 	{ 0, 		0, 		0 },
+	[SchemeInfoSel] = 	{ 0, 		0, 		0 },
 };
 
 /* tagging */
@@ -50,9 +61,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
-static int nmaster     = 1;    /* number of clients in master area */
-static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol	arrange function */
@@ -79,31 +90,12 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-h", "30", "-g", "3", "-l", "5", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_white, "-sb", selbordercolor, "-sf", col_selfg, "-h", "30", "-g", "3", "-l", "5", NULL };
 static const char *dmenuemojicmd[] = { "dmenuunicode" , NULL};
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
-
-/*
- * Xresources preferences to load at startup
- */
-ResourcePref resources[] = {
-	{ "normbgcolor",	STRING,		&normbgcolor },
-	{ "normbordercolor",	STRING, 	&normbordercolor },
-	{ "normfgcolor",	STRING, 	&normfgcolor},
-	{ "selbgcolor",		STRING,		&selbgcolor },
-	{ "selbordercolor",	STRING, 	&selbordercolor },
-	{ "selfgcolor",		STRING, 	&selfgcolor },
-	{ "borderpx",		INTEGER,	&borderpx },
-	{ "snap",		INTEGER,	&snap },
-	{ "showbar",		INTEGER,	&showbar },
-	{ "topbar",		INTEGER,	&topbar },
-	{ "nmaster",		INTEGER,	&nmaster },
-	{ "resizehints",	INTEGER,	&resizehints },
-	{ "mfact",		FLOAT,		&mfact },
-};
 
 #include "selfrestart.c"
 
