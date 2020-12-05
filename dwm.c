@@ -1645,7 +1645,7 @@ resizebarwin(Monitor *m) {
 	unsigned int w = m->ww;
 	if (showsystray && m == systraytomon(m))
 		w -= getsystraywidth();
-	XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, w, bh);
+	XMoveResizeWindow(dpy, m->barwin, m->wx + sp, m->by + vp, w - 2 * sp, bh);
 }
 
 void
@@ -2509,7 +2509,7 @@ updatebars(void)
 		if (showsystray && m == systraytomon(m))
 			w -= getsystraywidth();
 		/* m->barwin = XCreateWindow(dpy, root, m->wx + sp, m->by + vp, m->ww - 2 * sp, bh, 0, depth, */
-		m->barwin = XCreateWindow(dpy, root, m->wx + sp, m->by + vp, w, bh, 0, depth,
+		m->barwin = XCreateWindow(dpy, root, m->wx + sp, m->by + vp, w - 2 * sp, bh, 0, depth,
 				InputOutput, visual,
 				CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
@@ -2753,7 +2753,8 @@ updatesystray(void)
 	XWindowChanges wc;
 	Client *i;
 	Monitor *m = systraytomon(NULL);
-	unsigned int x = m->mx + m->mw;
+	unsigned int x = m->mx + m->mw - sp;
+	unsigned int y = m->by + vp;
 	unsigned int w = 1;
 
 	if (!showsystray)
@@ -2762,7 +2763,7 @@ updatesystray(void)
 		/* init systray */
 		if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
 			die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
-		systray->win = XCreateSimpleWindow(dpy, root, x, m->by, w, bh, 0, 0, scheme[SchemeSel][ColBg].pixel);
+		systray->win = XCreateSimpleWindow(dpy, root, x, y, w, bh, 0, 0, scheme[SchemeSel][ColBg].pixel);
 		wa.event_mask        = ButtonPressMask | ExposureMask;
 		wa.override_redirect = True;
 		wa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
@@ -2798,7 +2799,8 @@ updatesystray(void)
 	w = w ? w + systrayspacing : 1;
 	x -= w;
 	XMoveResizeWindow(dpy, systray->win, x, m->by, w, bh);
-	wc.x = x; wc.y = m->by; wc.width = w; wc.height = bh;
+	/* wc.x = x - sp; wc.y = m->by + vp; wc.width = w; wc.height = bh; */
+	wc.x = x; wc.y = y; wc.width = w; wc.height = bh;
 	wc.stack_mode = Above; wc.sibling = m->barwin;
 	XConfigureWindow(dpy, systray->win, CWX|CWY|CWWidth|CWHeight|CWSibling|CWStackMode, &wc);
 	XMapWindow(dpy, systray->win);

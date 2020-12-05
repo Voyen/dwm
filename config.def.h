@@ -31,7 +31,7 @@ static const unsigned int baralpha	= 208;
 static const unsigned int borderalpha	= OPAQUE;
 static const char *colors[][3]      	= {
 	/*               	  fg         	bg         	border   */
-	[SchemeNorm] = 		{ col_white, 	col_black, 	col_normborder },
+	[SchemeNorm] = 		{ col_white, 	col_normbg, 	col_normborder },
 	[SchemeSel]  = 		{ col_white, 	col_black,  	col_selborder },
 	[SchemeStatus] = 	{ col_normfg,	col_normbg,	col_black },
 	[SchemeTagsNorm] = 	{ col_normfg,	col_normbg,	col_black },
@@ -94,7 +94,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_white, "-sb", selbordercolor, "-sf", col_selfg, "-h", "30", "-g", "3", "-l", "5", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_normbg, "-nf", col_normfg, "-sb", col_selbg, "-sf", col_selfg, "-nhb", col_normbg, "-nhf", col_selfg, "-shb", col_normbg, "-shf", col_normfg, "-h", "30", "-g", "3", "-l", "5", NULL };
 static const char *dmenuemojicmd[] = { "dmenuunicode" , NULL};
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
