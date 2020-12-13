@@ -100,6 +100,7 @@ static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
+static const char *lockscreencmd = { "betterlockscreen", "-l", "blur", NULL};
 
 #include "selfrestart.c"
 
@@ -132,6 +133,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_t,	   setlayout,	   {.v = &layouts[7]} },
 	{ MODKEY,			XK_f,	   togglefullscreen, {0}, },
 	{ MODKEY|ShiftMask,		XK_f,	   togglefakefullscreen, {0} },
+	{ MODKEY|ShiftMask,		XK_l,	   spawn,	   {.v = lockscreencmd } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
