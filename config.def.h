@@ -100,7 +100,7 @@ static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
-static const char *lockscreencmd = { "betterlockscreen", "-l", "blur", NULL};
+static const char *lockscreencmd[] = { "betterlockscreen", "-l", "blur", NULL};
 
 #include "selfrestart.c"
 
