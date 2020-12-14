@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx              = 3;            /* border pixel of windows */
-static const int gappx                          = 18;		    /* gaps between windows */
+static const int gappx                          = 18;           /* gaps between windows */
 static const unsigned int snap                  = 32;           /* snap pixel */
 static const unsigned int systraypinning        = 0;            /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing        = 0;            /* systray spacing */
@@ -27,41 +27,41 @@ static char col_normbg[]                        = "#282a36";
 static char col_selbg[]                         = "#684a82";
 static char col_normfg[]                        = "#ff79c6";
 static char col_selfg[]                         = "#ffb86c";
-static const unsigned int baralpha	            = 208;
-static const unsigned int borderalpha	        = OPAQUE;
-static const char *colors[][3]      	= {
-	/*               	  fg         	    bg         	    border   */
-	[SchemeNorm] = 		{ col_white, 	    col_normbg, 	col_normborder },
-	[SchemeSel]  = 		{ col_white, 	    col_black,  	col_selborder },
-	[SchemeStatus] = 	{ col_normfg,	    col_normbg,	    col_black },
-	[SchemeTagsNorm] = 	{ col_normfg,	    col_normbg,	    col_black },
-	[SchemeTagsSel] = 	{ col_selfg,	    col_selbg,	    col_black },
-	[SchemeInfoNorm] = 	{ col_normfg,	    col_black,	    col_black },
-	[SchemeInfoSel] = 	{ col_selfg,	    col_white,	    col_black },
+static const unsigned int baralpha              = 208;
+static const unsigned int borderalpha           = OPAQUE;
+static const char *colors[][3]                  = {
+    /*                    fg                bg         	    border          */
+    [SchemeNorm] =      { col_white,        col_normbg,     col_normborder  },
+    [SchemeSel]  =      { col_white,        col_black,      col_selborder   },
+    [SchemeStatus] =    { col_normfg,       col_normbg,     col_black       },
+    [SchemeTagsNorm] = 	{ col_normfg,       col_normbg,     col_black       },
+    [SchemeTagsSel] =   { col_selfg,        col_selbg,      col_black       },
+    [SchemeInfoNorm] =  { col_normfg,       col_black,      col_black       },
+    [SchemeInfoSel] =   { col_selfg,        col_white,      col_black       },
 };
 
-static const unsigned int alphas[][3]	= {
-	/*		  	          fg		    bg		    border	*/
-	[SchemeStatus] = 	{ OPAQUE,	    baralpha,	borderalpha },
-	[SchemeTagsNorm] = 	{ OPAQUE,	    baralpha,	borderalpha },
-	[SchemeTagsSel] = 	{ OPAQUE,	    baralpha,	borderalpha },
-	[SchemeInfoNorm] = 	{ 0, 		    0, 		    0 },
-	[SchemeInfoSel] = 	{ 0, 		    0, 		    0 },
+static const unsigned int alphas[][3]           = {
+    /*                    fg            bg          border      */
+    [SchemeStatus] =    { OPAQUE,       baralpha    borderalpha },
+    [SchemeTagsNorm] =  { OPAQUE,       baralpha    borderalpha },
+    [SchemeTagsSel] =   { OPAQUE,       baralpha    borderalpha },
+    [SchemeInfoNorm] =  { 0,            0,          0           },
+    [SchemeInfoSel] =   { 0,            0,          0           },
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
+    /* xprop(1):
+     *  WM_CLASS(STRING) = instance, class
+     *  WM_NAME(STRING) = title
+     */
+    /* class        instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+    { "Gimp",       NULL,     NULL,           0,         1,          0,           0,        -1 },
+    { "Firefox",    NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+    { "St",         NULL,     NULL,           0,         0,          1,           0,        -1 },
+    { NULL,         NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -70,37 +70,37 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-	/* symbol	arrange function */
-	{ "[]=", 	tile },    /* first entry is default */
-	{ "><>", 	NULL },    /* no layout function means floating behavior */
-	{ "[M]", 	monocle },
-	{ "|M|", 	centeredmaster },
-	{ ">M>", 	centeredfloatingmaster },
-	{ "TTT", 	bstack },
-	{ "===", 	bstackhoriz },
-	{ "D",	 	deck },
+    /* symbol   arrange function */
+    { "[]=",    tile },
+    { "><>",    NULL }, /* no layout function means floating behavior */
+    { "[M]",    monocle },
+    { "|M|",    centeredmaster },
+    { ">M>",    centeredfloatingmaster },
+    { "TTT",    bstack },
+    { "===",    bstackhoriz },
+    { "D",      deck },
 };
 
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+    { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+    { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+    { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+    { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_normbg, "-nf", col_normfg, "-sb", col_selbg, "-sf", col_selfg, "-nhb", col_normbg, "-nhf", col_selfg, "-shb", col_normbg, "-shf", col_normfg, "-h", "30", "-g", "3", "-l", "5", NULL };
-static const char *dmenuemojicmd[] = { "dmenuunicode" , NULL};
-static const char *termcmd[]  = { "st", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
-static const char *layoutmenu_cmd = "layoutmenu.sh";
-static const char *lockscreencmd[] = { "betterlockscreen", "-l", "blur", NULL};
+static char dmenumon[2]             = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_normbg, "-nf", col_normfg, "-sb", col_selbg, "-sf", col_selfg, "-nhb", col_normbg, "-nhf", col_selfg, "-shb", col_normbg, "-shf", col_normfg, "-h", "30", "-g", "3", "-l", "5", NULL };
+static const char *dmenuemojicmd[]  = { "dmenuunicode" , NULL};
+static const char *termcmd[]        = { "st", NULL };
+static const char scratchpadname[]  = "scratchpad";
+static const char *scratchpadcmd[]  = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+static const char *layoutmenu_cmd   = "layoutmenu.sh";
+static const char *lockscreencmd[]  = { "betterlockscreen", "-l", "blur", NULL};
 
 #include "selfrestart.c"
 
