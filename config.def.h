@@ -57,11 +57,13 @@ static const Rule rules[] = {
      *  WM_CLASS(STRING) = instance, class
      *  WM_NAME(STRING) = title
      */
-    /* class        instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-    { "Gimp",       NULL,     NULL,           0,         1,          0,           0,        -1 },
-    { "Firefox",    NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-    { "St",         NULL,     NULL,           0,         0,          1,           0,        -1 },
-    { NULL,         NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
+    /* class        instance    title               tags mask   isfloating  isterminal  noswallow   monitor */
+    { "Gimp",       NULL,       NULL,               0,          1,          0,          0,          -1 },
+    { "Firefox",    NULL,       NULL,               1 << 8,     0,          0,          -1,         -1 },
+    { NULL,         NULL,       "scratchpad",       0,          1,          0,          0,          -1 },
+    { "St",         NULL,       NULL,               0,          0,          1,          0,          -1 },
+    { NULL,         NULL,       "Event Tester",     0,          0,          0,          1,          -1 }, /* xev */
+    { NULL,         NULL,       "Arcolinux Logout", 0,          1,          0,          0,          -1 },
 };
 
 /* layout(s) */
@@ -106,55 +108,74 @@ static const char *lockscreencmd[]  = { "betterlockscreen", "-l", "blur", NULL};
 
 #include "movestack.c"
 static Key keys[] = {
-	/* modifier                     key             function                argument */
-    { MODKEY,                       XK_p,           spawn,                  {.v = dmenucmd } },
-    { MODKEY|ShiftMask,             XK_p,           spawn,                  {.v = dmenuemojicmd} },
-    { MODKEY,                       XK_Return,      spawn,                  {.v = termcmd } },
-    { MODKEY,                       XK_grave,       togglescratch,          {.v = scratchpadcmd } },
-    { MODKEY,                       XK_b,           togglebar,              {0} },
-    { MODKEY,                       XK_j,           focusstack,             {.i = +1 } },
-    { MODKEY,                       XK_k,           focusstack,             {.i = -1 } },
-    { MODKEY,                       XK_period,      incnmaster,             {.i = +1 } },
-    { MODKEY,                       XK_comma,       incnmaster,             {.i = -1 } },
-    { MODKEY,                       XK_h,           setmfact,               {.f = -0.05} },
-    { MODKEY,                       XK_l,           setmfact,               {.f = +0.05} },
-    { MODKEY|ShiftMask,             XK_j,           movestack,              {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_k,           movestack,              {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_Return,      zoom,                   {0} },
-    { MODKEY,                       XK_Tab,         view,                   {0} },
-    { MODKEY|ShiftMask,             XK_c,           killclient,             {0} },
-    { MODKEY,                       XK_t,           setlayout,              {.v = &layouts[0]} },
-    { MODKEY,                       XK_m,           setlayout,              {.v = &layouts[2]} },
-    { MODKEY,                       XK_o,           setlayout,              {.v = &layouts[3]} },
-    { MODKEY|ShiftMask,             XK_o,           setlayout,              {.v = &layouts[4]} },
-    { MODKEY,                       XK_u,           setlayout,              {.v = &layouts[5]} },
-    { MODKEY|ShiftMask,             XK_u,           setlayout,              {.v = &layouts[6]} },
-    { MODKEY|ShiftMask,             XK_t,           setlayout,              {.v = &layouts[7]} },
-    { MODKEY,                       XK_f,           togglefullscreen,       {0} },
-    { MODKEY|ShiftMask,             XK_f,           togglefakefullscreen,   {0} },
-    { MODKEY|ShiftMask,             XK_l,           spawn,                  {.v = lockscreencmd } },
-    { MODKEY,                       XK_space,       setlayout,              {0} },
-    { MODKEY|ShiftMask,             XK_space,       togglefloating,         {0} },
-    { MODKEY,                       XK_0,           view,                   {.ui = ~0 } },
-    { MODKEY|ShiftMask,             XK_0,           tag,                    {.ui = ~0 } },
-    { MODKEY,                       XK_comma,       focusmon,               {.i = -1 } },
-    { MODKEY,                       XK_period,      focusmon,               {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_comma,       tagmon,                 {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_period,      tagmon,                 {.i = +1 } },
-    { MODKEY,                       XK_minus,       setgaps,                {.i = -10 } },
-    { MODKEY,                       XK_equal,       setgaps,                {.i = +10 } },
-    { MODKEY|ShiftMask,             XK_equal,       setgaps,                {.i = 0 } },
-    { MODKEY|ShiftMask,             XK_r,           self_restart,           {0} },
-    { MODKEY|ShiftMask,             XK_q,           quit,                   {0} },
-    TAGKEYS(                        XK_1,                                   0)
-    TAGKEYS(                        XK_2,                                   1)
-    TAGKEYS(                        XK_3,                                   2)
-    TAGKEYS(                        XK_4,                                   3)
-    TAGKEYS(                        XK_5,                                   4)
-    TAGKEYS(                        XK_6,                                   5)
-    TAGKEYS(                        XK_7,                                   6)
-    TAGKEYS(                        XK_8,                                   7)
-    TAGKEYS(                        XK_9,                                   8)
+	/* modifier                     key                     function                    argument */
+
+    // launchers
+    { MODKEY,                       XK_p,                   spawn,                      {.v = dmenucmd } },
+    { MODKEY|ShiftMask,             XK_p,                   spawn,                      {.v = dmenuemojicmd} },
+    { MODKEY,                       XK_Return,              spawn,                      {.v = termcmd } },
+    { MODKEY,                       XK_grave,               togglescratch,              {.v = scratchpadcmd } },
+    { 0|Mod1Mask|ControlMask,       XK_s,                   spawn,                      SHCMD("spotify") },
+    { 0|Mod1Mask|ControlMask,       XK_e,                   spawn,                      SHCMD("pcmanfm") },
+    { 0|Mod1Mask|ControlMask,       XK_f,                   spawn,                      SHCMD("firefox") },
+    { 0|Mod1Mask|ControlMask,       XK_c,                   spawn,                      SHCMD("google-chrome") },
+    { 0|Mod1Mask|ControlMask,       XK_m,                   spawn,                      SHCMD("xfce4-settings-manager") },
+    { 0|Mod1Mask|ControlMask,       XK_u,                   spawn,                      SHCMD("pavucontrol") },
+    { 0|ShiftMask|ControlMask,      XK_Escape,              spawn,                      SHCMD("urxvt 'htop task manager' -e htop") },
+    { MODKEY|ShiftMask,             XK_c,                   killclient,                 {0} },
+    { MODKEY,                       XK_q,                   killclient,                 {0} },
+
+    // layout
+    { MODKEY,                       XK_b,                   togglebar,                  {0} },
+    { MODKEY,                       XK_j,                   focusstack,                 {.i = +1 } },
+    { MODKEY,                       XK_k,                   focusstack,                 {.i = -1 } },
+    { MODKEY,                       XK_bracketleft,         incnmaster,                 {.i = -1 } },
+    { MODKEY,                       XK_bracketright,        incnmaster,                 {.i = +1 } },
+    { MODKEY,                       XK_h,                   setmfact,                   {.f = -0.05} },
+    { MODKEY,                       XK_l,                   setmfact,                   {.f = +0.05} },
+    { MODKEY|ShiftMask,             XK_j,                   movestack,                  {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_k,                   movestack,                  {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_Return,              zoom,                       {0} },
+    { MODKEY,                       XK_Tab,                 view,                       {0} },
+    { MODKEY,                       XK_t,                   setlayout,                  {.v = &layouts[0]} },
+    { MODKEY,                       XK_m,                   setlayout,                  {.v = &layouts[2]} },
+    { MODKEY,                       XK_o,                   setlayout,                  {.v = &layouts[3]} },
+    { MODKEY|ShiftMask,             XK_o,                   setlayout,                  {.v = &layouts[4]} },
+    { MODKEY,                       XK_u,                   setlayout,                  {.v = &layouts[5]} },
+    { MODKEY|ShiftMask,             XK_u,                   setlayout,                  {.v = &layouts[6]} },
+    { MODKEY|ShiftMask,             XK_t,                   setlayout,                  {.v = &layouts[7]} },
+    { MODKEY,                       XK_f,                   togglefullscreen,           {0} },
+    { MODKEY|ShiftMask,             XK_f,                   togglefakefullscreen,       {0} },
+    // { MODKEY,                       XK_space,               setlayout,                  {0} },
+    { MODKEY|ShiftMask,             XK_space,               togglefloating,             {0} },
+    { MODKEY,                       XK_minus,               setgaps,                    {.i = -10 } },
+    { MODKEY,                       XK_equal,               setgaps,                    {.i = +10 } },
+    { MODKEY|ShiftMask,             XK_equal,               setgaps,                    {.i = 0 } },
+
+    // monitors
+    { MODKEY,                       XK_comma,               focusmon,                   {.i = -1 } },
+    { MODKEY,                       XK_period,              focusmon,                   {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_comma,               tagmon,                     {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_period,              tagmon,                     {.i = +1 } },
+
+    // system
+    { MODKEY|ShiftMask,             XK_l,                   spawn,                      {.v = lockscreencmd } },
+    { MODKEY,                       XK_x,                   spawn,                      SHCMD("arcolinux-logout") },
+    { MODKEY|ShiftMask,             XK_r,                   self_restart,               {0} },
+    { MODKEY|ShiftMask,             XK_q,                   quit,                       {0} },
+
+    // tags
+    { MODKEY,                       XK_0,                   view,                       {.ui = ~0 } },
+    { MODKEY|ShiftMask,             XK_0,                   tag,                        {.ui = ~0 } },
+    TAGKEYS(                        XK_1,                                               0)
+    TAGKEYS(                        XK_2,                                               1)
+    TAGKEYS(                        XK_3,                                               2)
+    TAGKEYS(                        XK_4,                                               3)
+    TAGKEYS(                        XK_5,                                               4)
+    TAGKEYS(                        XK_6,                                               5)
+    TAGKEYS(                        XK_7,                                               6)
+    TAGKEYS(                        XK_8,                                               7)
+    TAGKEYS(                        XK_9,                                               8)
 };
 
 /* button definitions */
