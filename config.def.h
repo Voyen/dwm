@@ -42,9 +42,9 @@ static const char *colors[][3]                  = {
 
 static const unsigned int alphas[][3]           = {
     /*                    fg            bg          border      */
-    [SchemeStatus] =    { OPAQUE,       baralpha    borderalpha },
-    [SchemeTagsNorm] =  { OPAQUE,       baralpha    borderalpha },
-    [SchemeTagsSel] =   { OPAQUE,       baralpha    borderalpha },
+    [SchemeStatus] =    { OPAQUE,       baralpha,   borderalpha },
+    [SchemeTagsNorm] =  { OPAQUE,       baralpha,   borderalpha },
+    [SchemeTagsSel] =   { OPAQUE,       baralpha,   borderalpha },
     [SchemeInfoNorm] =  { 0,            0,          0           },
     [SchemeInfoSel] =   { 0,            0,          0           },
 };
