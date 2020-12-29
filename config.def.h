@@ -16,8 +16,8 @@ static const int horizpadbar                    = 12;           /* horizontal pa
 static const int vertpadbar                     = 12;           /* vertical padding for statusbar */
 static const int vertpad                        = 18;           /* vertical padding of bar */
 static const int sidepad                        = 18;           /* horizontal padding of bar */
-static const char *fonts[]                      = { "monospace:size=14", "JoyPixels:pixelsize=14:antialias=true:autohint=true" };
-static const char dmenufont[]                   = "monospace:size=14";
+static const char *fonts[]                      = { "monospace:size=16", "JoyPixels:pixelsize=16:antialias=true:autohint=true" };
+static const char dmenufont[]                   = "monospace:size=16";
 static char selbordercolor[]                    = "#000000";
 static char col_black[]                         = "#000000";
 static char col_white[]                         = "#ffffff";
@@ -118,9 +118,10 @@ static Key keys[] = {
     { 0|Mod1Mask|ControlMask,       XK_s,                   spawn,                      SHCMD("spotify") },
     { 0|Mod1Mask|ControlMask,       XK_e,                   spawn,                      SHCMD("pcmanfm") },
     { 0|Mod1Mask|ControlMask,       XK_f,                   spawn,                      SHCMD("firefox") },
-    { 0|Mod1Mask|ControlMask,       XK_c,                   spawn,                      SHCMD("google-chrome") },
+    { 0|Mod1Mask|ControlMask,       XK_c,                   spawn,                      SHCMD("google-chrome-stable") },
     { 0|Mod1Mask|ControlMask,       XK_m,                   spawn,                      SHCMD("xfce4-settings-manager") },
     { 0|Mod1Mask|ControlMask,       XK_u,                   spawn,                      SHCMD("pavucontrol") },
+    // { 0|Mod1Mask|ControlMask,       XK_k,                   spawn,                      SHCMD("xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'") },
     { 0|ShiftMask|ControlMask,      XK_Escape,              spawn,                      SHCMD("urxvt 'htop task manager' -e htop") },
     { MODKEY|ShiftMask,             XK_c,                   killclient,                 {0} },
     { MODKEY,                       XK_q,                   killclient,                 {0} },
@@ -153,16 +154,26 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_equal,               setgaps,                    {.i = 0 } },
 
     // monitors
-    { MODKEY,                       XK_comma,               focusmon,                   {.i = -1 } },
-    { MODKEY,                       XK_period,              focusmon,                   {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_comma,               tagmon,                     {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_period,              tagmon,                     {.i = +1 } },
+    { MODKEY,                       XK_comma,               focusmon,                   {.i = +1 } },
+    { MODKEY,                       XK_period,              focusmon,                   {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_comma,               tagmon,                     {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_period,              tagmon,                     {.i = -1 } },
 
     // system
     { MODKEY|ShiftMask,             XK_l,                   spawn,                      {.v = lockscreencmd } },
     { MODKEY,                       XK_x,                   spawn,                      SHCMD("arcolinux-logout") },
     { MODKEY|ShiftMask,             XK_r,                   self_restart,               {0} },
     { MODKEY|ShiftMask,             XK_q,                   quit,                       {0} },
+    { MODKEY|ControlMask,           XK_minus,               spawn,                      SHCMD("pamixer --allow-boost -d 5") },
+    { MODKEY|ControlMask|ShiftMask, XK_minus,               spawn,                      SHCMD("pamixer --allow-boost -d 15") },
+    { MODKEY|ControlMask,           XK_equal,               spawn,                      SHCMD("pamixer --allow-boost -i 5") },
+    { MODKEY|ControlMask|ShiftMask, XK_equal,               spawn,                      SHCMD("pamixer --allow-boost -i 15") },
+    { MODKEY|ControlMask,           XK_0,                   spawn,                      SHCMD("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") },
+    { MODKEY|ControlMask,           XK_bracketleft,         spawn,                      SHCMD("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") },
+    { MODKEY|ControlMask,           XK_bracketright,        spawn,                      SHCMD("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") },
+
+    // screenshots
+    { MODKEY|ShiftMask,             XK_s,                   spawn,                      SHCMD("maim -s -u | xclip -selection clipboard -t image/png -i") }, /* Area to clipboard */
 
     // tags
     { MODKEY,                       XK_0,                   view,                       {.ui = ~0 } },
